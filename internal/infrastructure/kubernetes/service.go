@@ -54,6 +54,11 @@ func (i *Infra) expectedService(infra *ir.Infra) (*corev1.Service, error) {
 			Namespace: i.Namespace,
 			Name:      expectedServiceName(infra.Proxy.Name),
 			Labels:    labels,
+			Annotations: map[string]string{
+				"external-dns.alpha.kubernetes.io/hostname":                     "svc-40a9681f-d53f-46d1-ae15-2b7e8f2f54b6-mongo.aws-virginia-hd2.svc.singlestore.com",
+				"service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "tcp",
+				"service.beta.kubernetes.io/aws-load-balancer-proxy-protocol":   "*",
+			},
 		},
 		Spec: corev1.ServiceSpec{
 			Type:            corev1.ServiceTypeLoadBalancer,
